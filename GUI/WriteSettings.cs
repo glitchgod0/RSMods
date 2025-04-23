@@ -275,7 +275,7 @@ namespace RSMods
                 }
                 else
                 {
-                    reason += "Invalid steam_api.dll certificate.";
+                    reason += "Invalid steam_api.dll.";
                 }
             }
             catch { } // Fall-through = bad cert.
@@ -284,22 +284,25 @@ namespace RSMods
 
             if (areCrackIndicationsPresent)
             {
-                reason += "\nParts of game crack are present in the folder.";
+                reason += "\ngame crack files in folder";
             }
 
             bool isExeInvalid = !ExeUtil.CheckExecutable(installLocation);
 
             if (isExeInvalid)
             {
-                reason += "\nGame executable version doesn't appear to be correct.";
+                reason += "\nInvalid EXE";
             }
 
             if (areCrackIndicationsPresent || fakeSteamApi || isExeInvalid)
             {
-                MessageBox.Show($"Incompatible Rocksmith version detected! Only the newest RS version is supported - RSMods doesn't support pirated / stolen copies of Rocksmith 2014! {Environment.NewLine}Reason: {reason}", "Incompatible Rocksmith version", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Process.Start("https://store.steampowered.com/app/221680/");
-                Environment.Exit(1);
-                return;
+                MessageBox.Show($"Anti-Piracy check, {Environment.NewLine}Reason: {reason}", "We still gonna let you through tho", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                areCrackIndicationsPresent = false
+                fakeSteamApi = false
+                isExeInvalid = false
+                //Process.Start("https://store.steampowered.com/app/221680/");
+                //Environment.Exit(1);
+                //return;
             }
         }
         #endregion
