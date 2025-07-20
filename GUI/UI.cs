@@ -2756,7 +2756,11 @@ namespace RSMods
                     using (XmlWriter writer = XmlWriter.Create(sww, new XmlWriterSettings { Indent = true }))
                     {
                         xs.Serialize(writer, TwitchSettings.Get.Rewards);
-                        File.WriteAllText("TwitchEnabledEffects.xml", sww.ToString());
+
+                        string exePath = AppDomain.CurrentDomain.BaseDirectory;
+                        string effectListPath = Path.Combine(exePath, "TwitchEnabledEffects.xml");
+
+                        File.WriteAllText(effectListPath, sww.ToString());
                     }
                 }
             });
@@ -3027,7 +3031,10 @@ namespace RSMods
         {
             try
             {
-                File.WriteAllText("twitchLog.txt", TwitchSettings.Get.Log);
+                string exePath = AppDomain.CurrentDomain.BaseDirectory;
+                string logPath = Path.Combine(exePath, "twitchLog.txt");
+
+                File.WriteAllText(logPath, TwitchSettings.Get.Log);
                 MessageBox.Show("Saved log to RS folder/RSMods/twitchLog.txt!", "Saved!");
             }
             catch (IOException ioex)
